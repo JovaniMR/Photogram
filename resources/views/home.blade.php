@@ -30,7 +30,7 @@
                     <span class="nav-item ">
                       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><strong>....</strong></a>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="" >{{ _('Ir a la publicación') }}</a>
+                        <a class="dropdown-item" href="{{ route('post.show', $post->id) }}" >{{ _('Ir a la publicación') }}</a>
                       </div>
                     </span>
                   </div>  
@@ -45,7 +45,7 @@
                   <a href="">
                     <i class="far fa-heart mr-2" style="font-size: 24px;"></i>
                   </a>
-                  <a href="">
+                  <a href="{{ route('post.show', $post->id) }}">
                     <i class="far fa-comment" style="font-size: 24px;"></i>
                   </a>
                 </h5>
@@ -72,14 +72,14 @@
           
             @if (count($post->comments) > 0)
 
-            <hr>
+              <hr>
 
               {{-- Button comments --}}
-              <a href="">
+              <a href="{{ route('post.show',$post->id) }}">
                 <button type="button" class="btn btn-primary btn-sm ml-3 mb-2">
                   {{ _('Ver los ') }} 
                   <span class="badge badge-light">
-                    {{ count($post->comments) }}
+                    {{ count($post->commentsAll) }}
                   </span> 
                   {{ _(' comentarios') }}
                 </button>
@@ -118,7 +118,7 @@
                 
                 
               @endforeach  
-            @endif
+             @endif
             
 
             {{-- input comments --}}

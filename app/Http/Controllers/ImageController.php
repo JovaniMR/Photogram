@@ -65,9 +65,12 @@ class ImageController extends Controller
      * @param  \App\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function show(Image $image)
+    public function show($id)
     {
-        //
+
+        $post = Image::find($id);
+        
+        return view('post.show',compact('post'));
     }
 
     /**

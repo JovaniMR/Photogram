@@ -13,6 +13,10 @@ class Image extends Model
         return $this->hasMany('App\Comment')->OrderBy('id','desc')->limit(2);
     } 
 
+    public function commentsAll(){
+        return $this->hasMany('App\Comment')->OrderBy('id','desc');
+    } 
+
     //Relacion One to Many (una imagen tiene muchos likes)
     public function likes(){
         return $this->hasMany('App\Like');
