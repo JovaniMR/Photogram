@@ -9,8 +9,8 @@ class Comment extends Model
     protected $table = 'comments';
 
     //Relación Many to One (Muchos seguidores tienen un comentario)
-    public function follower(){
-      return $this->belongsTo('App\User','user_id');
+    public function user(){
+      return $this->belongsTo('App\User','follower_id','id');
     }
 
     //Relación Many to One

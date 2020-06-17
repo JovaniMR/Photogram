@@ -24,5 +24,9 @@ Route::get('/', 'HomeController@index')->name('home');
  */
 
 Route::resource('/user','UserController');
+Route::put('/image','UserController@saveImage')->name('image');
 
+
+Route::resource('post','ImageController');
+Route::resource('comment','CommentController');
 

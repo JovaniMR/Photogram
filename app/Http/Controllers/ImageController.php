@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,13 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //
+
+        $user = \Auth::user();
+
+        $images = Image::where('user_id','=',$user->id)->OrderBy('id','desc')->get();
+ 
+
+        return view('user.index',['images' => $images]);
     }
 
     /**
@@ -24,7 +35,7 @@ class ImageController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.modal');
     }
 
     /**
@@ -35,7 +46,17 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = \Auth::user();
+
+        $image = new Image();
+
+        $image->user_id = $user->id;
+        $image->image = $request->file('photo')->store('uploads','public');
+        $image->description= $request->input('description');
+
+        $image->save();
+
+        return redirect()->route('post.index');
     }
 
     /**
@@ -57,7 +78,7 @@ class ImageController extends Controller
      */
     public function edit(Image $image)
     {
-        //
+        //Return modal the view
     }
 
     /**
@@ -67,9 +88,9 @@ class ImageController extends Controller
      * @param  \App\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Image $image)
+    public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

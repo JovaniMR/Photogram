@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+        /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +45,18 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            $comment = new Comment();
+
+            $user = \Auth::user();
+            $id = $user->id;
+
+            $comment->image_id = $request->input('id');
+            $comment->follower_id = $id;
+            $comment->content = $request->input('comentary');
+
+            $comment->save();
+
+            return redirect()->route('home');
     }
 
     /**
@@ -80,6 +101,11 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+
+
+        Comment::destroy($comment->id);
+
+        return redirect()->route('home');
+        
     }
 }
